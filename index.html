@@ -3,12 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eruda IFrame</title>
+    <title>Eruda Debugger</title>
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-    <script>eruda.init();</script>
 </head>
 <body>
-    <h3>Eruda Debugger</h3>
-    <iframe id="targetFrame" src="https://www.dappportal.io" width="100%" height="600px" style="border: none;"></iframe>
+    <h3>Redirecting with Eruda...</h3>
+    <script>
+        function openWithEruda(url) {
+            let newWindow = window.open(url, "_blank");
+            if (newWindow) {
+                setTimeout(() => {
+                    newWindow.document.write(`
+                        <script src="//cdn.jsdelivr.net/npm/eruda"><\/script>
+                        <script>
+                            eruda.init();
+                        <\/script>
+                    `);
+                }, 3000); // Tunggu 3 detik agar halaman utama termuat dulu
+            } else {
+                alert("Popup terblokir! Izinkan pop-up di browser.");
+            }
+        }
+
+        const targetUrl = new URLSearchParams(window.location.search).get("url") || "https://www.dappportal.io";
+        openWithEruda(targetUrl);
+    </script>
 </body>
 </html>
