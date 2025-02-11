@@ -5,28 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eruda Debugger</title>
     <script src="//cdn.jsdelivr.net/npm/eruda"></script>
+    <style>
+        .eruda {
+            position: fixed !important;
+            bottom: 10px !important;
+            left: 10px !important;
+            z-index: 99999 !important;
+            display: block !important;
+            opacity: 1 !important;
+        }
+    </style>
 </head>
 <body>
-    <h3>Redirecting with Eruda...</h3>
     <script>
-        function openWithEruda(url) {
-            let newWindow = window.open(url, "_blank");
-            if (newWindow) {
-                setTimeout(() => {
-                    newWindow.document.write(`
-                        <script src="//cdn.jsdelivr.net/npm/eruda"><\/script>
-                        <script>
-                            eruda.init();
-                        <\/script>
-                    `);
-                }, 3000); // Tunggu 3 detik agar halaman utama termuat dulu
-            } else {
-                alert("Popup terblokir! Izinkan pop-up di browser.");
-            }
-        }
+        // Inisialisasi Eruda
+        eruda.init();
 
-        const targetUrl = new URLSearchParams(window.location.search).get("url") || "https://www.dappportal.io";
-        openWithEruda(targetUrl);
+        // Pastikan tombol Eruda tidak hilang
+        setInterval(() => {
+            if (!document.querySelector('.eruda')) {
+                console.log("Eruda hilang, memuat ulang...");
+                eruda.init();
+            }
+        }, 1000); // Cek setiap 1 detik
+
+        // Tunggu sebelum redirect agar Eruda sepenuhnya terpasang
+        setTimeout(() => {
+            window.location.href = new URLSearchParams(window.location.search).get("url") || "https://www.dappportal.io";
+        }, 3000);
     </script>
+
+    <h3>Loading Eruda... Harap tunggu</h3>
 </body>
 </html>
