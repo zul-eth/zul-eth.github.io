@@ -3,38 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eruda Debugger</title>
-    <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-    <style>
-        .eruda {
-            position: fixed !important;
-            bottom: 10px !important;
-            left: 10px !important;
-            z-index: 99999 !important;
-            display: block !important;
-            opacity: 1 !important;
-        }
-    </style>
-</head>
-<body>
+    <title>VConsole Debugger</title>
+    <script src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"></script>
     <script>
-        // Inisialisasi Eruda
-        eruda.init();
-
-        // Pastikan tombol Eruda tidak hilang
-        setInterval(() => {
-            if (!document.querySelector('.eruda')) {
-                console.log("Eruda hilang, memuat ulang...");
-                eruda.init();
-            }
-        }, 1000); // Cek setiap 1 detik
-
-        // Tunggu sebelum redirect agar Eruda sepenuhnya terpasang
+        new VConsole();
         setTimeout(() => {
-            window.location.href = new URLSearchParams(window.location.search).get("url") || "https://www.dappportal.io/launching/bridge";
+            window.location.href = new URLSearchParams(window.location.search).get("url") || "https://bulletstorm.xyz";
         }, 3000);
     </script>
-
-    <h3>Loading Eruda... Harap tunggu</h3>
+</head>
+<body>
+    <h3>Loading VConsole... Harap tunggu</h3>
 </body>
 </html>
